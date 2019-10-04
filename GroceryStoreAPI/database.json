@@ -12,19 +12,23 @@
       "name": "Joe"
     }
   ],
-  "orders": [{
-    "id": 1,
-    "customerId": 1,
-    "items": [{
-        "productId": 1,
-        "quantity": 2
-      },
-      {
-        "productId": 2,
-        "quantity": 3
-      }
-    ]
-  }],
+  "orders": [
+    {
+      "id": 1,
+      "customerId": 1,
+      "orderDate": "2012-04-23T18:25:43.511",
+      "items": [
+        {
+          "productId": 1,
+          "quantity": 2
+        },
+        {
+          "productId": 2,
+          "quantity": 3
+        }
+      ]
+    }
+  ],
   "products": [{
       "id": 1,
       "description": "apple",
