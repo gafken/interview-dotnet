@@ -1,7 +1,6 @@
 ﻿using GroceryStoreAPI.Interfaces;
 using GroceryStoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 
 namespace GroceryStoreAPI.Controllers
@@ -28,9 +27,10 @@ namespace GroceryStoreAPI.Controllers
             return GroceryStoreDbContext.Customers.SingleOrDefault(x => x.Id == id);
         }
 
+        [Route("customer/{id}/orders")]
         public Order[] GetCustomerOrders(int id)
         {
-            throw new NotImplementedException();
+            return GroceryStoreDbContext.Orders.Where(x => x.CustomerId == id).ToArray();
         }
 
         //[Route("/customer/{firstName}/{lastName}")]

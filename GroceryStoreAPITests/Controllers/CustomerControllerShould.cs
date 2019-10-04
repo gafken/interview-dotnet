@@ -74,21 +74,6 @@ namespace GroceryStoreAPITests.Controllers
         }
 
         [Fact]
-        public void ReturnEmptyArrayWhenGetCustomerOrdersIsCalledWithInvalidCustomerId()
-        {
-            var customer = _fixture.Build<Customer>()
-                .With(x => x.Id, 1)
-                .Create();
-            var context = Substitute.For<IGroceryStoreDbContext>();
-            context.Customers.Returns(new List<Customer> { customer });
-
-            var controller = new CustomerController(context);
-            var actual = controller.GetCustomerOrders(2);
-
-            actual.Should().BeEmpty();
-        }
-
-        [Fact]
         public void ReturnEmptyArrayWhenGetCustomerOrdersIsCalledAndHasNoOrders()
         {
             var customer = _fixture.Build<Customer>()

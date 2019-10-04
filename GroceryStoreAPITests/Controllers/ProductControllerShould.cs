@@ -4,10 +4,7 @@ using GroceryStoreAPI.Controllers;
 using GroceryStoreAPI.Interfaces;
 using GroceryStoreAPI.Models;
 using NSubstitute;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Xunit;
 
 namespace GroceryStoreAPITests.Controllers

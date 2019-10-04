@@ -1,7 +1,6 @@
 using FluentAssertions;
 using GroceryStoreAPI;
 using GroceryStoreAPI.Models;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using Xunit;
