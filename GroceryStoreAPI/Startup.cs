@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using GroceryStoreAPI.Interfaces;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +20,7 @@ namespace GroceryStoreAPI
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             // services.AddDbContextPool<GroceryStoreDbContext>(o => o.UseSqlServer("ConnectionString"));
-            services.AddSingleton<GroceryStoreDbContext>();
+            services.AddSingleton<IGroceryStoreDbContext, GroceryStoreDbContext>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
