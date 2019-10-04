@@ -25,5 +25,19 @@ namespace GroceryStoreAPITests.Controllers
 
             actual.Should().BeEquivalentTo(expected);
         }
+
+        [Fact]
+        public void ReturnCustomerThatMatchesOnIdWhenGetCustomerByIdIsCalled()
+        {
+            var customers = _fixture.CreateMany<Customer>(5).ToList();
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Customers.Returns(customers);
+
+            var expected = customers[2];
+            var controller = new CustomerController(context);
+            var actual = controller.GetCustomerById(expected.Id);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
     }
 }
