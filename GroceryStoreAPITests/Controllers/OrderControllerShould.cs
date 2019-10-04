@@ -30,8 +30,9 @@ namespace GroceryStoreAPITests.Controllers
         [Fact]
         public void ReturnCustomersWithSameDateWhenGetCustomersByDateIsCalled()
         {
+            var now = DateTime.Now;
             var expected = _fixture.Build<Order>()
-                .With(x => x.OrderDate, DateTime.Now)
+                .With(x => x.OrderDate, now)
                 .CreateMany(2).ToList();
             var additionalOrders = _fixture.Build<Order>()
                 .With(x => x.OrderDate, DateTime.Now.AddDays(-15))
@@ -41,7 +42,7 @@ namespace GroceryStoreAPITests.Controllers
             context.Orders.Returns(expected.Concat(additionalOrders).ToList());
 
             var controller = new OrderController(context);
-            var actual = controller.GetOrdersByDate(DateTime.Now);
+            var actual = controller.GetOrdersByDate(now.Year, now.Month, now.Day);
 
             actual.Should().BeEquivalentTo(expected);
         }

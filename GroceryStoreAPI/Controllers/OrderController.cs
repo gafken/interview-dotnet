@@ -22,10 +22,20 @@ namespace GroceryStoreAPI.Controllers
             return GroceryStoreDbContext.Orders.ToArray();
         }
 
-        [Route("orders/{dateTime}")]
-        public Order[] GetOrdersByDate(DateTime queryDate)
+        [Route("orders/{year}/{month}/{day}")]
+        public Order[] GetOrdersByDate(int year, int month, int day)
         {
-            return GroceryStoreDbContext.Orders.Where(x => x.OrderDate.Date == queryDate.Date).ToArray();
+            return GroceryStoreDbContext.Orders.Where(x => 
+                x.OrderDate.Year == year &&
+                x.OrderDate.Month == month &&
+                x.OrderDate.Day == day)
+                .ToArray();
         }
+
+        //[Route("orders/{id}")]
+        //public Order GetOrdersById(int id)
+        //{
+        //    return GroceryStoreDbContext.Orders.SingleOrDefault(x => x.Id == id);
+        //}
     }
 }
