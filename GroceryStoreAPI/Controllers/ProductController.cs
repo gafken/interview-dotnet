@@ -23,5 +23,10 @@ namespace GroceryStoreAPI.Controllers
         {
             return GroceryStoreDbContext.Products.ToArray();
         }
+
+        public object GetProductById(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
