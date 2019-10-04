@@ -4,6 +4,7 @@ using GroceryStoreAPI.Controllers;
 using GroceryStoreAPI.Interfaces;
 using GroceryStoreAPI.Models;
 using NSubstitute;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -53,6 +54,57 @@ namespace GroceryStoreAPITests.Controllers
             var actual = controller.GetCustomerById(2);
 
             actual.Should().BeNull();
+        }
+
+        [Fact]
+        public void ReturnOrdersFoundOnCustomerWhenGetCustomerOrdersIsCalled()
+        {
+            var customer = _fixture.Create<Customer>();
+            var expected = _fixture.Build<Order>()
+                .With(x => x.CustomerId, customer.Id)
+                .CreateMany(5).ToList();
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Customers.Returns(new List<Customer> {  customer });
+            context.Orders.Returns(expected);
+
+            var controller = new CustomerController(context);
+            var actual = controller.GetCustomerOrders(customer.Id);
+
+            actual.Should().BeEquivalentTo(expected);
+        }
+
+        [Fact]
+        public void ReturnEmptyArrayWhenGetCustomerOrdersIsCalledWithInvalidCustomerId()
+        {
+            var customer = _fixture.Build<Customer>()
+                .With(x => x.Id, 1)
+                .Create();
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Customers.Returns(new List<Customer> { customer });
+
+            var controller = new CustomerController(context);
+            var actual = controller.GetCustomerOrders(2);
+
+            actual.Should().BeEmpty();
+        }
+
+        [Fact]
+        public void ReturnEmptyArrayWhenGetCustomerOrdersIsCalledAndHasNoOrders()
+        {
+            var customer = _fixture.Build<Customer>()
+                .With(x => x.Id, 1)
+                .Create();
+            var orders = _fixture.Build<Order>()
+                .With(x => x.CustomerId, 2)
+                .CreateMany(5).ToList();
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Customers.Returns(new List<Customer> { customer });
+            context.Orders.Returns(orders);
+
+            var controller = new CustomerController(context);
+            var actual = controller.GetCustomerOrders(customer.Id);
+
+            actual.Should().BeEmpty();
         }
     }
 }
