@@ -32,10 +32,10 @@ namespace GroceryStoreAPI.Controllers
                 .ToArray();
         }
 
-        //[Route("orders/{id}")]
-        //public Order GetOrdersById(int id)
-        //{
-        //    return GroceryStoreDbContext.Orders.SingleOrDefault(x => x.Id == id);
-        //}
+        [Route("orders/{id}")]
+        public Order GetOrdersById(int id)
+        {
+            return GroceryStoreDbContext.Orders.SingleOrDefault(x => x.Id == id);
+        }
     }
 }

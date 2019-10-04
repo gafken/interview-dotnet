@@ -37,7 +37,23 @@ namespace GroceryStoreAPITests.Controllers
             var controller = new CustomerController(context);
             var actual = controller.GetCustomerById(expected.Id);
 
-            actual.Should().BeEquivalentTo(expected);
+            actual.Should().Be(expected);
+        }
+
+        [Fact]
+        public void ReturnNullWhenGetCustomerByIdIsCalledWithInvalidId()
+        {
+            var customers = _fixture.Build<Customer>()
+                .With(x => x.Id, 1)
+                .CreateMany(5).ToList();
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Customers.Returns(customers);
+
+            var controller = new CustomerController(context);
+            var actual = controller.GetCustomerById(2);
+
+            actual.Should().BeNull();
         }
     }
 }
+
