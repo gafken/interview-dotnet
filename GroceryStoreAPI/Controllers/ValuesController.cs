@@ -10,6 +10,16 @@ namespace GroceryStoreAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        public GroceryStoreDbContext GroceryStoreDbContext { get; }
+
+        public ValuesController(GroceryStoreDbContext groceryStoreDbContext)
+        {
+            GroceryStoreDbContext = groceryStoreDbContext;
+            var x = groceryStoreDbContext.Orders.ToList();
+            var y = groceryStoreDbContext.Customers.ToList();
+            var x2 = groceryStoreDbContext.Products.ToList();
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
