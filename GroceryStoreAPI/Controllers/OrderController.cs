@@ -1,6 +1,8 @@
 ﻿using GroceryStoreAPI.Interfaces;
 using GroceryStoreAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Linq;
 
 namespace GroceryStoreAPI.Controllers
 {
@@ -18,6 +20,12 @@ namespace GroceryStoreAPI.Controllers
         public Order[] GetOrders()
         {
             return GroceryStoreDbContext.Orders.ToArray();
+        }
+
+        [Route("orders/{dateTime}")]
+        public Order[] GetOrdersByDate(DateTime queryDate)
+        {
+            return GroceryStoreDbContext.Orders.Where(x => x.OrderDate.Date == queryDate.Date).ToArray();
         }
     }
 }
