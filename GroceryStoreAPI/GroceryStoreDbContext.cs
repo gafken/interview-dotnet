@@ -1,16 +1,14 @@
-﻿using GroceryStoreAPI.Models;
+﻿using GroceryStoreAPI.Interfaces;
+using GroceryStoreAPI.Models;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace GroceryStoreAPI
 {
     //This would normally be through EFCore for data persistance
     //Since the Json is used to simulate a database, I will bypass this setup
-    public class GroceryStoreDbContext //: DbContext
+    public class GroceryStoreDbContext : IGroceryStoreDbContext //: DbContext
     {
         public List<Customer> Customers { get; set; }
         public List<Order> Orders { get; set; }
