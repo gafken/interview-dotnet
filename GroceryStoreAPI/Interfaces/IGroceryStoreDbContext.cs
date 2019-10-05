@@ -8,5 +8,7 @@ namespace GroceryStoreAPI.Interfaces
         List<Customer> Customers { get; set; }
         List<Order> Orders { get; set; }
         List<Product> Products { get; set; }
+
+        void Save();
     }
 }

@@ -91,6 +91,19 @@ namespace GroceryStoreAPITests.Controllers
 
             actual.Should().BeEmpty();
         }
+
+        [Fact]
+        public void AddCustomerToDbContextWhenAddCustomerIsCalled()
+        {
+            var expectedName = "New Customer Name";
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Customers.Returns(new List<Customer>());
+
+            var controller = new CustomerController(context);
+            controller.AddCustomer(expectedName);
+
+            context.Customers.First().Name.Should().Be(expectedName);
+        }
     }
 }
 
