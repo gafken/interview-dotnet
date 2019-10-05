@@ -29,6 +29,7 @@ namespace GroceryStoreAPI.Controllers
         }
 
         [Route("product/new/{description}/{price}")]
+        [HttpPost]
         public void AddProduct(string description, decimal price)
         {
             var nextIndex = GroceryStoreDbContext.Products.Select(x => x.Id).DefaultIfEmpty(0).Max() + 1;
