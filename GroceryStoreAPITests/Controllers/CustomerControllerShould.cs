@@ -103,6 +103,7 @@ namespace GroceryStoreAPITests.Controllers
             controller.AddCustomer(expectedName);
 
             context.Customers.First().Name.Should().Be(expectedName);
+            context.Received(1).Save();
         }
     }
 }

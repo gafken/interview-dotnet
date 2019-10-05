@@ -4,6 +4,7 @@ using GroceryStoreAPI.Controllers;
 using GroceryStoreAPI.Interfaces;
 using GroceryStoreAPI.Models;
 using NSubstitute;
+using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
@@ -54,6 +55,23 @@ namespace GroceryStoreAPITests.Controllers
             var actual = controller.GetProductById(2);
 
             actual.Should().BeNull();
+        }
+
+        [Fact]
+        public void AddProductToDbContextWhenAddProductIsCalled()
+        {
+            var expectedDescription = "New Product Description";
+            var expectedPrice = 1.75m;
+            var context = Substitute.For<IGroceryStoreDbContext>();
+            context.Products.Returns(new List<Product>());
+
+            var controller = new ProductController(context);
+            controller.AddProduct(expectedDescription, expectedPrice);
+
+            var addedProduct = context.Products.First();
+            addedProduct.Description.Should().Be(expectedDescription);
+            addedProduct.Price.Should().Be(expectedPrice);
+            context.Received(1).Save();
         }
     }
 }
